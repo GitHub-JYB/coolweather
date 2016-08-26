@@ -1,5 +1,6 @@
 package admin_jyb.coolweather.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,7 +33,7 @@ import admin_jyb.coolweather.util.Utility;
  * Created by Admin-JYB on 2016/8/25.
  */
 
-public class ChooseAreaActivity extends AppCompatActivity {
+public class ChooseAreaActivity extends Activity {
     public static final int LEVEL_PROVINCE = 0;
     public static final int LEVEL_CITY = 1;
     public static final int LEVEL_COUNTY = 2;
@@ -85,7 +86,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
         isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity",false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //已经选择了城市且不是从WeatherActivity跳转过来，才会直接跳转到WeatherActivity
-        if (prefs.getBoolean("city_selected",false && !isFromWeatherActivity)){
+        if (prefs.getBoolean("city_selected",false ) && !isFromWeatherActivity){
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
             finish();

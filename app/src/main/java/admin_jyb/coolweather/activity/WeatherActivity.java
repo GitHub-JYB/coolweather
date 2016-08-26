@@ -1,12 +1,11 @@
 package admin_jyb.coolweather.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,7 +18,7 @@ import admin_jyb.coolweather.util.HttpCallbackListener;
 import admin_jyb.coolweather.util.HttpUtil;
 import admin_jyb.coolweather.util.Utility;
 
-public class WeatherActivity extends AppCompatActivity implements View.OnClickListener {
+public class WeatherActivity extends Activity implements View.OnClickListener {
 
     private LinearLayout weatherInfoLayout;
     /**
@@ -99,7 +98,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
      *  查询天气代号对应的天气
      */
     private void queryWeatherInfo(String weatherCode){
-        String address = "http://www.weather.com.cn/data/cityinfo/" + weatherCode + ".html";
+        String address = "http://www.weather.com.cn/adat/cityinfo/" + weatherCode + ".html";
         queryFromServer(address,"weatherCode");
     }
 
@@ -157,7 +156,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
         Intent intent = new Intent(this, AutoUpdateService.class);
-        startActivity(intent);
+        startService(intent);
     }
 
     @Override
@@ -174,7 +173,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 String weatherCode = prefs.getString("weather_code", "");
                 if (!TextUtils.isEmpty(weatherCode)){
-                    queryWeatherCode(weatherCode);
+                    queryWeatherInfo(weatherCode);
                 }
                 break;
             default:
